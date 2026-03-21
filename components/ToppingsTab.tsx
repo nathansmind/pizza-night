@@ -1,7 +1,7 @@
 'use client'
 
-import { useRef } from 'react'
-import { TOPPING_COMBOS, SPECIAL_RECIPES, SAUCES, type IngredientRef } from '@/data/pizzaData'
+import { useRef, useState } from 'react'
+import { TOPPING_COMBOS, SPECIAL_RECIPES, SAUCES, type IngredientRef, type ToppingCombo } from '@/data/pizzaData'
 
 interface ToppingsTabProps {
   onSauceLink: (sauceId: string) => void
@@ -11,11 +11,26 @@ function isSauceRef(ing: IngredientRef): ing is { label: string; sauceId: string
   return typeof ing === 'object' && ing !== null
 }
 
+function ingLabel(ing: IngredientRef): string {
+  return isSauceRef(ing) ? ing.label : ing
+}
+
+function formatComboText(combo: ToppingCombo): string {
+  const lines = [combo.name, '']
+  lines.push(...combo.ingredients.map((ing) => `• ${ingLabel(ing)}`))
+  if (combo.finishWith && combo.finishWith.length > 0) {
+    lines.push('', 'Finish with:')
+    lines.push(...combo.finishWith.map((ing) => `• ${ingLabel(ing)}`))
+  }
+  return lines.join('\n')
+}
+
 const SAUCE_IDS = new Set(SAUCES.map((s) => s.id))
 const SPECIAL_IDS = new Set(SPECIAL_RECIPES.map((r) => r.id))
 
 export default function ToppingsTab({ onSauceLink }: ToppingsTabProps) {
   const recipeRefs = useRef<Record<string, HTMLDivElement | null>>({})
+  const [copiedId, setCopiedId] = useState<string | null>(null)
 
   function handleIngredientLink(sauceId: string) {
     if (SAUCE_IDS.has(sauceId)) {
@@ -25,12 +40,38 @@ export default function ToppingsTab({ onSauceLink }: ToppingsTabProps) {
     }
   }
 
+  async function handleShare(combo: ToppingCombo) {
+    const text = formatComboText(combo)
+    if (navigator.share) {
+      await navigator.share({ title: combo.name, text })
+    } else {
+      await navigator.clipboard.writeText(text)
+      setCopiedId(combo.id)
+      setTimeout(() => setCopiedId(null), 2000)
+    }
+  }
+
   return (
     <div className="p-4 space-y-4">
       {TOPPING_COMBOS.map((combo) => (
         <div key={combo.id} className="rounded-xl border border-stone-200 bg-white shadow-sm overflow-hidden">
-          <div className="px-4 py-3 bg-stone-50 border-b border-stone-200">
+          <div className="px-4 py-3 bg-stone-50 border-b border-stone-200 flex items-center justify-between">
             <h2 className="font-semibold text-gray-800">{combo.name}</h2>
+            <button
+              onClick={() => handleShare(combo)}
+              className="text-stone-400 hover:text-stone-600 active:text-stone-800 transition-colors ml-2 flex items-center gap-1"
+              title="Share ingredients"
+            >
+              {copiedId === combo.id ? (
+                <span className="text-xs font-medium text-stone-500">Copied!</span>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                  <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+                  <polyline points="16 6 12 2 8 6" />
+                  <line x1="12" y1="2" x2="12" y2="15" />
+                </svg>
+              )}
+            </button>
           </div>
           <div className="px-4 py-3 space-y-3">
             <ul className="space-y-1.5">

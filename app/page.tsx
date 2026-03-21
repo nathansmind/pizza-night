@@ -12,7 +12,7 @@ type Tab = 'crust' | 'toppings' | 'sauce'
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<Tab>('crust')
-  const [selectedStyle, setSelectedStyle] = useState<PizzaStyle>('Detroit')
+  const [selectedStyle, setSelectedStyle] = useState<PizzaStyle>('NYC')
   const [numPizzas, setNumPizzas] = useState(1)
   const [overrides, setOverrides] = useState<Partial<Record<string, number>>>({})
   const [activeSauceId, setActiveSauceId] = useState<string | null>(null)

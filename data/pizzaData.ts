@@ -10,6 +10,7 @@ export interface StyleData {
   name: PizzaStyle
   waterPct: number       // e.g. 0.71
   maltOrSugarPct: number // e.g. 0.02
+  oliveOilPct: number    // e.g. 0.01
   doughBallGrams: number
   instructions: string
 }
@@ -45,12 +46,11 @@ export interface SpecialRecipe {
 // ─── Pizza Styles ─────────────────────────────────────────────────────────────
 
 // Static baker's percentages (same for all styles):
-//   Flour: 100%, Yeast: 1%, Salt: 2%, Olive Oil: 1%
+//   Flour: 100%, Yeast: 1%, Salt: 2%
 export const STATIC_BAKERS: Record<string, number> = {
   flour: 1.0,
   yeast: 0.01,
   salt: 0.02,
-  oliveOil: 0.01,
 }
 
 export const PIZZA_STYLES: StyleData[] = [
@@ -58,6 +58,7 @@ export const PIZZA_STYLES: StyleData[] = [
     name: 'NYC',
     waterPct: 0.69,
     maltOrSugarPct: 0.02,
+    oliveOilPct: 0,
     doughBallGrams: 385,
     instructions:
       'Preheat pizza steel for 1 hour at 500 degrees. Bring dough to room temperature (about 1 hour). Stretch dough into 14-inch pizzas. Add toppings. **Bake 4 minutes, turn, bake another 3 minutes or until crispy.**',
@@ -66,6 +67,7 @@ export const PIZZA_STYLES: StyleData[] = [
     name: 'Detroit',
     waterPct: 0.71,
     maltOrSugarPct: 0.02,
+    oliveOilPct: 0,
     doughBallGrams: 640,
     instructions:
       'Remove dough from refrigerator and bring to room temperature (about 1 hour). Transfer to oiled Detroit Steel pan and spread dough (don\'t over-stretch — you will come back later). Let rise for 30 minutes. Push to corners and let rise another 1 hour. **Add half the cheese and bake 5 minutes. Add the rest of the cheese and toppings. Bake 5 minutes, turn, bake another 4 minutes or until cheese is dark and crispy.** Remove from pan immediately and transfer to a cooling rack.\n\nNote: Every pan and oven is a little different. You will need to test yours to get it to cook just right.',
@@ -74,6 +76,7 @@ export const PIZZA_STYLES: StyleData[] = [
     name: 'Focaccia',
     waterPct: 0.71,
     maltOrSugarPct: 0.02,
+    oliveOilPct: 0,
     doughBallGrams: 1000,
     instructions:
       'Remove dough from refrigerator and bring to room temperature (about 1 hour). Transfer to oiled sheet pan and spread dough (don\'t over-stretch — you will come back later). Let rise for 30 minutes. Preheat pizza steel for 1 hour at 450 degrees. Push to corners and let rise another 1.5–2 hours. **Parbake 7 minutes, turn, bake for another 7 minutes until top is brown.** Remove from pan and rest 30 minutes. Add toppings. **Bake 7 minutes, turn, bake another 6 minutes or until done.**\n\nNote: Every pan and oven is a little different. You will need to test yours to get it to cook just right.',
@@ -82,6 +85,7 @@ export const PIZZA_STYLES: StyleData[] = [
     name: 'Calzone',
     waterPct: 0.67,
     maltOrSugarPct: 0.02,
+    oliveOilPct: 0,
     doughBallGrams: 190,
     instructions:
       'Preheat pizza steel for 1 hour at 500 degrees. Bring dough to room temperature (about 1 hour). Stretch dough into 8–10 inch rounds. Add filling to one half, fold over the other half, and pinch them together. **Bake 4 minutes, turn, bake another 3 minutes or until crispy.**',
@@ -90,6 +94,7 @@ export const PIZZA_STYLES: StyleData[] = [
     name: 'Grilled',
     waterPct: 0.62,
     maltOrSugarPct: 0.01,
+    oliveOilPct: 0,
     doughBallGrams: 385,
     instructions:
       'Bring dough to room temperature (about 1 hour). Preheat grill to 500 degrees. Stretch dough and place directly onto a pizza screen. Add cheese first, sauce next. **Bake directly on grill 4 minutes, turn, bake another 4 minutes or until done.**',
@@ -98,6 +103,7 @@ export const PIZZA_STYLES: StyleData[] = [
     name: 'Grandma',
     waterPct: 0.70,
     maltOrSugarPct: 0.02,
+    oliveOilPct: 0,
     doughBallGrams: 810,
     instructions:
       'Remove dough from refrigerator and bring to room temperature (about 1 hour). Transfer to oiled sheet pan and spread dough (don\'t over-stretch — you will come back later). Let rise for 30 minutes. Preheat pizza steel for 1 hour at 500 degrees. Push dough to corners and let rise another 1 hour. **Top pizza and bake for 8 minutes, turn, bake another 7 minutes until done.**',

@@ -10,6 +10,27 @@ interface SauceTabProps {
 
 const DEFAULT_OZ = 28
 
+const EIGHTH_FRACTIONS: Record<number, string> = {
+  0: '',
+  1: '⅛',
+  2: '¼',
+  3: '⅜',
+  4: '½',
+  5: '⅝',
+  6: '¾',
+  7: '⅞',
+}
+
+function toFractionTsp(tsp: number): string {
+  const rounded = Math.round(tsp * 8) / 8
+  const whole = Math.floor(rounded)
+  const eighths = Math.round((rounded - whole) * 8)
+  const fraction = EIGHTH_FRACTIONS[eighths] ?? ''
+  if (whole === 0) return `${fraction} tsp`
+  if (fraction === '') return `${whole} tsp`
+  return `${whole} ${fraction} tsp`
+}
+
 export default function SauceTab({ activeSauceId, onClearActiveSauce }: SauceTabProps) {
   const sauceRefs = useRef<Record<string, HTMLDivElement | null>>({})
   const [ozValues, setOzValues] = useState<Record<string, number>>(
@@ -103,7 +124,7 @@ export default function SauceTab({ activeSauceId, onClearActiveSauce }: SauceTab
                   return (
                     <tr key={ing.name}>
                       <td className="px-4 py-2 text-gray-800">{ing.name}</td>
-                      <td className="px-4 py-2 text-right text-gray-500">{tsp.toFixed(2)} tsp</td>
+                      <td className="px-4 py-2 text-right text-gray-500">{toFractionTsp(tsp)}</td>
                       <td className="px-4 py-2 text-right text-gray-500">{grams.toFixed(2)}g</td>
                     </tr>
                   )

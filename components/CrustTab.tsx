@@ -25,7 +25,7 @@ function calcIngredients(
   const yeastPct      = overrides.yeast       ?? 0.01
   const waterPct      = overrides.water        ?? s.waterPct
   const saltPct       = overrides.salt         ?? 0.02
-  const oliveOilPct   = overrides.oliveOil     ?? 0.01
+  const oliveOilPct   = overrides.oliveOil     ?? s.oliveOilPct
   const maltOrSugarPct = overrides.maltOrSugar ?? s.maltOrSugarPct
 
   const totalBakerPct = 1.0 + yeastPct + waterPct + saltPct + oliveOilPct + maltOrSugarPct
