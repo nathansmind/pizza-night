@@ -16,8 +16,9 @@ export interface StyleData {
 
 export interface SauceIngredient {
   name: string
-  amount: string
-  grams?: string
+  tspPer28oz?: number   // scalable: tsp amount at 28oz base
+  gramsPerTsp?: number  // scalable: grams per tsp
+  fixedAmount?: string  // non-scalable display text (e.g. "oz" for tomatoes, "Pinch")
 }
 
 export interface Sauce {
@@ -32,6 +33,7 @@ export interface ToppingCombo {
   id: string
   name: string
   ingredients: IngredientRef[]
+  finishWith?: IngredientRef[]
 }
 
 export interface SpecialRecipe {
@@ -58,7 +60,7 @@ export const PIZZA_STYLES: StyleData[] = [
     maltOrSugarPct: 0.02,
     doughBallGrams: 385,
     instructions:
-      '500 degrees. Makes 14 inch pizzas. Bake 4 mins, turn, 3 mins or until crispy.',
+      'Preheat pizza steel for 1 hour at 500 degrees. Bring dough to room temperature (about 1 hour). Stretch dough into 14-inch pizzas. Add toppings. **Bake 4 minutes, turn, bake another 3 minutes or until crispy.**',
   },
   {
     name: 'Detroit',
@@ -66,23 +68,23 @@ export const PIZZA_STYLES: StyleData[] = [
     maltOrSugarPct: 0.02,
     doughBallGrams: 640,
     instructions:
-      '500 degrees. Rise in oiled Detroit Steel pan 1 hour. Push to corners and let rise another 1 hour. Add half the cheese and bake 5 mins. Add the rest of the cheese and toppings. Bake 5 mins, turn, 4 minutes or until cheese is dark and crispy.',
+      'Remove dough from refrigerator and bring to room temperature (about 1 hour). Transfer to oiled Detroit Steel pan and spread dough (don\'t over-stretch — you will come back later). Let rise for 30 minutes. Push to corners and let rise another 1 hour. **Add half the cheese and bake 5 minutes. Add the rest of the cheese and toppings. Bake 5 minutes, turn, bake another 4 minutes or until cheese is dark and crispy.** Remove from pan immediately and transfer to a cooling rack.\n\nNote: Every pan and oven is a little different. You will need to test yours to get it to cook just right.',
   },
   {
     name: 'Focaccia',
-    waterPct: 0.70,
+    waterPct: 0.71,
     maltOrSugarPct: 0.02,
     doughBallGrams: 1000,
     instructions:
-      '450 degrees. Rise in oiled cookie sheet pan 30 min. Push to corners and let rise 1.5 - 2 hours. Parbake 7 mins, turn, 7 mins until top is brown. Take off pan and rest 30 minutes. Put on toppings. Bake 7 mins, turn, 6 mins or until done.',
+      'Remove dough from refrigerator and bring to room temperature (about 1 hour). Transfer to oiled sheet pan and spread dough (don\'t over-stretch — you will come back later). Let rise for 30 minutes. Preheat pizza steel for 1 hour at 450 degrees. Push to corners and let rise another 1.5–2 hours. **Parbake 7 minutes, turn, bake for another 7 minutes until top is brown.** Remove from pan and rest 30 minutes. Add toppings. **Bake 7 minutes, turn, bake another 6 minutes or until done.**\n\nNote: Every pan and oven is a little different. You will need to test yours to get it to cook just right.',
   },
   {
     name: 'Calzone',
     waterPct: 0.67,
     maltOrSugarPct: 0.02,
-    doughBallGrams: 230,
+    doughBallGrams: 190,
     instructions:
-      '500 degrees. Makes 10 inch rounds. Bake 4 mins, turn, 3 mins or until crispy.',
+      'Preheat pizza steel for 1 hour at 500 degrees. Bring dough to room temperature (about 1 hour). Stretch dough into 8–10 inch rounds. Add filling to one half, fold over the other half, and pinch them together. **Bake 4 minutes, turn, bake another 3 minutes or until crispy.**',
   },
   {
     name: 'Grilled',
@@ -90,7 +92,7 @@ export const PIZZA_STYLES: StyleData[] = [
     maltOrSugarPct: 0.01,
     doughBallGrams: 385,
     instructions:
-      'Get Grill up to 500 degrees. Use a pizza screen directly on grill top. Cheese on first. Sauce on next. Bake 4 mins, turn, 4 mins or until done.',
+      'Bring dough to room temperature (about 1 hour). Preheat grill to 500 degrees. Stretch dough and place directly onto a pizza screen. Add cheese first, sauce next. **Bake directly on grill 4 minutes, turn, bake another 4 minutes or until done.**',
   },
   {
     name: 'Grandma',
@@ -98,7 +100,7 @@ export const PIZZA_STYLES: StyleData[] = [
     maltOrSugarPct: 0.02,
     doughBallGrams: 810,
     instructions:
-      '500 degrees. Rise in oiled cookie sheet pan 30 min. Push to corners and let rise 1 hour. Top pizza and bake for 8 mins, turn, 7 mins until done.',
+      'Remove dough from refrigerator and bring to room temperature (about 1 hour). Transfer to oiled sheet pan and spread dough (don\'t over-stretch — you will come back later). Let rise for 30 minutes. Preheat pizza steel for 1 hour at 500 degrees. Push dough to corners and let rise another 1 hour. **Top pizza and bake for 8 minutes, turn, bake another 7 minutes until done.**',
   },
 ]
 
@@ -109,10 +111,10 @@ export const SAUCES: Sauce[] = [
     id: 'nyc',
     name: 'NYC Sauce',
     ingredients: [
-      { name: 'Whole Peeled Tomatoes', amount: '28 oz' },
-      { name: 'Salt (Fine Sea)', amount: '½ tsp', grams: '2.85g' },
-      { name: 'Sugar', amount: '2 tsp', grams: '6.95g' },
-      { name: 'Oregano', amount: '2 tsp', grams: '5.72g' },
+      { name: 'Cento Whole Peeled Tomatoes', fixedAmount: 'oz' },
+      { name: 'Salt (Fine Sea)', tspPer28oz: 0.5, gramsPerTsp: 5.69 },
+      { name: 'Sugar', tspPer28oz: 2.0, gramsPerTsp: 3.474889723783 },
+      { name: 'Oregano', tspPer28oz: 2.0, gramsPerTsp: 2.858774524531 },
     ],
     instructions: 'Add all ingredients to a blender and puree thoroughly.',
     notes: 'Spoon 2/3 cup on 14in pizza.',
@@ -121,9 +123,9 @@ export const SAUCES: Sauce[] = [
     id: 'detroit',
     name: 'Detroit Sauce',
     ingredients: [
-      { name: 'Whole Peeled Tomatoes', amount: '28 oz' },
-      { name: 'Salt (Fine Sea)', amount: '½ tsp', grams: '2.85g' },
-      { name: 'Oregano', amount: '2 tsp', grams: '5.72g' },
+      { name: 'Cento Whole Peeled Tomatoes', fixedAmount: 'oz' },
+      { name: 'Salt (Fine Sea)', tspPer28oz: 0.5, gramsPerTsp: 5.69 },
+      { name: 'Oregano', tspPer28oz: 2.0, gramsPerTsp: 2.858774524531 },
     ],
     instructions:
       'Add all ingredients to a blender and puree thoroughly and cook for 20 minutes.',
@@ -132,11 +134,11 @@ export const SAUCES: Sauce[] = [
     id: 'grandma',
     name: 'Grandma Sauce',
     ingredients: [
-      { name: 'Hand Crushed Tomatoes', amount: '28 oz' },
-      { name: 'Salt (Fine Sea)', amount: '½ tsp', grams: '2.85g' },
-      { name: 'Garlic', amount: '1½ tsp', grams: '4.50g' },
-      { name: 'Oregano', amount: '2 tsp', grams: '5.72g' },
-      { name: 'Black Pepper', amount: 'Pinch' },
+      { name: 'Cento Crushed Tomatoes', fixedAmount: 'oz' },
+      { name: 'Salt (Fine Sea)', tspPer28oz: 0.5, gramsPerTsp: 5.69 },
+      { name: 'Garlic', tspPer28oz: 1.5, gramsPerTsp: 3.0 },
+      { name: 'Oregano', tspPer28oz: 2.0, gramsPerTsp: 2.858774524531 },
+      { name: 'Black Pepper', fixedAmount: 'Pinch' },
     ],
     instructions:
       'Add all ingredients and mix. Keep some larger chunks of tomatoes.',
@@ -148,74 +150,92 @@ export const SAUCES: Sauce[] = [
 export const TOPPING_COMBOS: ToppingCombo[] = [
   {
     id: 'classic-cheese',
-    name: 'Classic Cheese',
+    name: 'Three Cheese',
     ingredients: [
-      'Standard cheese',
-      'Mozzarella',
-      'Fontina',
-      'Basic tomato sauce (add basil if cheese only)',
+      { label: 'NYC Sauce', sauceId: 'nyc' },
+      'Half Mozzarella Half Fontina',
     ],
+    finishWith: ['Parmesan', 'Basil'],
   },
   {
     id: 'salami',
-    name: 'Salami',
-    ingredients: ['Salami', 'Rosemary', 'Standard cheese', 'Hot chilli peppers'],
+    name: 'Rosemary Salami',
+    ingredients: [
+      { label: 'NYC Sauce', sauceId: 'nyc' },
+      'Half Mozzarella Half Fontina',
+      'Salami',
+      'Rosemary',
+      'Hot chilli peppers',
+    ],
   },
   {
     id: 'chicken-bacon-ranch',
     name: 'Chicken Bacon Ranch',
-    ingredients: ['Chicken', 'Bacon', 'Ranch', 'Tomato', 'Green onion'],
+    ingredients: [
+      'Ranch Dressing',
+      'Half Mozzarella Half Fontina',
+      'Chicken',
+      'Bacon',
+      'Diced Tomato',
+      'Green onion',
+    ],
   },
   {
     id: 'hawaiian',
-    name: 'Hawaiian',
-    ingredients: ['Ham', 'Pineapple', 'Minced jalapeño', 'Standard cheese'],
+    name: 'Hawaiian NYC Sauce',
+    ingredients: [
+      { label: 'NYC Sauce', sauceId: 'nyc' },
+      'Half Mozzarella Half Fontina',
+      'Ham cubes',
+      'Diced Pineapple',
+      'Minced jalapeño',
+    ],
   },
   {
     id: 'margarita',
     name: 'Margarita',
     ingredients: [
-      'Basic tomato sauce',
+      { label: 'NYC Sauce', sauceId: 'nyc' },
       'Mozzarella (shredded and balled)',
       'Basil',
-      'Balsamic drizzle',
     ],
+    finishWith: ['Balsamic drizzle'],
   },
   {
     id: 'dubliner',
     name: 'Dubliner',
     ingredients: [
-      'Corned beef',
-      { label: 'Coleslaw', sauceId: 'coleslaw' },
       'Thousand island dressing',
-      'Mozzarella',
-      'Fontina or Dubliner cheese',
+      'Half Mozzarella Half Fontina or Dubliner cheese',
+      'Corned beef',
     ],
+    finishWith: [{ label: 'Coleslaw', sauceId: 'coleslaw' }],
   },
   {
     id: 'taco-pizza',
     name: 'Taco Pizza',
     ingredients: [
+      'Chipotle Ranch Dressing',
+      'Half Cheddar Half Mozzarella',
       'Taco seasoned ground beef',
-      'Chipotle ranch sauce',
       'Tomato',
       'Green onion',
       'Olive',
-      'Cheddar and mozzarella',
-      'Lettuce',
-      'Sour cream dip',
     ],
+    finishWith: ['Lettuce', 'Sour cream dip'],
   },
   {
     id: 'brick-corner-margarita',
     name: 'Brick Corner Margarita',
     ingredients: [
       { label: 'Detroit sauce', sauceId: 'detroit' },
+      'Half Medium Cheddar Half Mozzarella',
+      'Sliced tomatoes',
+    ],
+    finishWith: [
       'Balsamic drizzle',
-      'Sharp cheese and mozzarella blend',
-      { label: 'Whipped basil ricotta', sauceId: 'whipped-ricotta' },
       { label: 'Tossed arugula', sauceId: 'arugula-salad' },
-      'Whole tomatoes',
+      { label: 'Whipped basil ricotta', sauceId: 'whipped-ricotta' },
     ],
   },
 ]

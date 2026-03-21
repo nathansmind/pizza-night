@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import TabNav from '@/components/TabNav'
 import CrustTab from '@/components/CrustTab'
 import ToppingsTab from '@/components/ToppingsTab'
@@ -45,11 +46,15 @@ export default function Home() {
   return (
     <div className="max-w-lg mx-auto min-h-screen flex flex-col">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 px-4 py-4">
-        <h1 className="text-xl font-bold text-gray-900">Pizza Calculator</h1>
-        <p className="text-sm text-gray-500 mt-0.5">
-          {selectedStyle} style · {numPizzas} pizza{numPizzas !== 1 ? 's' : ''}
-        </p>
+      <header className="flex flex-col items-center py-3 px-4">
+        <Image
+          src="/logo.png"
+          alt="The Pizza Place"
+          width={486}
+          height={351}
+          className="w-24 h-auto"
+          priority
+        />
       </header>
 
       {/* Tab Nav */}
