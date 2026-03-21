@@ -33,6 +33,7 @@ export interface Sauce {
 export interface ToppingCombo {
   id: string
   name: string
+  styles: ('NYC' | 'Grilled' | 'Detroit' | 'Calzone')[]
   ingredients: IngredientRef[]
   finishWith?: IngredientRef[]
 }
@@ -157,6 +158,7 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
   {
     id: 'classic-cheese',
     name: 'Three Cheese',
+    styles: ['NYC', 'Grilled'],
     ingredients: [
       { label: 'NYC Sauce', sauceId: 'nyc' },
       'Half Mozzarella Half Fontina',
@@ -166,6 +168,7 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
   {
     id: 'salami',
     name: 'Rosemary Salami',
+    styles: ['NYC', 'Grilled'],
     ingredients: [
       { label: 'NYC Sauce', sauceId: 'nyc' },
       'Half Mozzarella Half Fontina',
@@ -177,6 +180,7 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
   {
     id: 'chicken-bacon-ranch',
     name: 'Chicken Bacon Ranch',
+    styles: ['NYC', 'Grilled'],
     ingredients: [
       'Ranch Dressing',
       'Half Mozzarella Half Fontina',
@@ -189,6 +193,7 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
   {
     id: 'hawaiian',
     name: 'Hawaiian NYC Sauce',
+    styles: ['NYC', 'Grilled'],
     ingredients: [
       { label: 'NYC Sauce', sauceId: 'nyc' },
       'Half Mozzarella Half Fontina',
@@ -200,6 +205,7 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
   {
     id: 'margarita',
     name: 'Margarita',
+    styles: ['NYC', 'Grilled'],
     ingredients: [
       { label: 'NYC Sauce', sauceId: 'nyc' },
       'Mozzarella (shredded and balled)',
@@ -210,6 +216,7 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
   {
     id: 'dubliner',
     name: 'Dubliner',
+    styles: ['NYC', 'Grilled'],
     ingredients: [
       'Thousand island dressing',
       'Half Mozzarella Half Fontina or Dubliner cheese',
@@ -220,6 +227,7 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
   {
     id: 'taco-pizza',
     name: 'Taco Pizza',
+    styles: ['NYC', 'Grilled'],
     ingredients: [
       'Chipotle Ranch Dressing',
       'Half Cheddar Half Mozzarella',
@@ -233,6 +241,7 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
   {
     id: 'brick-corner-margarita',
     name: 'Brick Corner Margarita',
+    styles: ['Detroit'],
     ingredients: [
       { label: 'Detroit sauce', sauceId: 'detroit' },
       'Half Medium Cheddar Half Mozzarella',
@@ -243,6 +252,49 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
       { label: 'Tossed arugula', sauceId: 'arugula-salad' },
       { label: 'Whipped basil ricotta', sauceId: 'whipped-ricotta' },
     ],
+  },
+  {
+    id: 'detroit-classic-pep',
+    name: 'Detroit Classic Pep',
+    styles: ['Detroit'],
+    ingredients: [
+      { label: 'Detroit sauce', sauceId: 'detroit' },
+      'Half Medium Cheddar Half Mozzarella',
+      'Pepperonis',
+    ],
+  },
+  {
+    id: 'classic-pepperoni',
+    name: 'Classic Pepperoni',
+    styles: ['NYC', 'Grilled'],
+    ingredients: [
+      { label: 'NYC Sauce', sauceId: 'nyc' },
+      'Half Mozzarella Half Fontina',
+      'Pepperonis',
+    ],
+    finishWith: ['Parmesan'],
+  },
+  {
+    id: 'meatball-calzone',
+    name: 'Meatball Calzone',
+    styles: ['Calzone'],
+    ingredients: [
+      'Mozzarella',
+      'Meatballs',
+    ],
+    finishWith: ['Salt', 'Oregano', 'Marinara dip'],
+  },
+  {
+    id: 'spinach-pepperoni-calzone',
+    name: 'Spinach Pepperoni Calzone',
+    styles: ['Calzone'],
+    ingredients: [
+      'Mozzarella',
+      'Spinach',
+      'Diced tomatoes',
+      'Pepperonis',
+    ],
+    finishWith: ['Salt', 'Oregano'],
   },
 ]
 

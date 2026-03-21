@@ -28,9 +28,12 @@ function formatComboText(combo: ToppingCombo): string {
 const SAUCE_IDS = new Set(SAUCES.map((s) => s.id))
 const SPECIAL_IDS = new Set(SPECIAL_RECIPES.map((r) => r.id))
 
+type Filter = 'all' | 'NYC' | 'Grilled' | 'Detroit' | 'Calzone' | 'special'
+
 export default function ToppingsTab({ onSauceLink }: ToppingsTabProps) {
   const recipeRefs = useRef<Record<string, HTMLDivElement | null>>({})
   const [copiedId, setCopiedId] = useState<string | null>(null)
+  const [filter, setFilter] = useState<Filter>('all')
 
   function handleIngredientLink(sauceId: string) {
     if (SAUCE_IDS.has(sauceId)) {
@@ -51,9 +54,36 @@ export default function ToppingsTab({ onSauceLink }: ToppingsTabProps) {
     }
   }
 
+  const visibleCombos = filter === 'all'
+    ? TOPPING_COMBOS
+    : filter === 'special'
+      ? []
+      : TOPPING_COMBOS.filter((c) => c.styles.includes(filter as 'NYC' | 'Grilled' | 'Detroit' | 'Calzone'))
+
+  const showSpecialRecipes = filter === 'all' || filter === 'special'
+
   return (
     <div className="p-4 space-y-4">
-      {TOPPING_COMBOS.map((combo) => (
+      {/* Filter */}
+      <div>
+        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">
+          Filter
+        </label>
+        <select
+          value={filter}
+          onChange={(e) => setFilter(e.target.value as Filter)}
+          className="w-full rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary"
+        >
+          <option value="all">All</option>
+          <option value="NYC">NYC</option>
+          <option value="Grilled">Grilled</option>
+          <option value="Detroit">Detroit</option>
+          <option value="Calzone">Calzone</option>
+          <option value="special">Special Toppings</option>
+        </select>
+      </div>
+
+      {visibleCombos.map((combo) => (
         <div key={combo.id} className="rounded-xl border border-stone-200 bg-white shadow-sm overflow-hidden">
           <div className="px-4 py-3 bg-stone-50 border-b border-stone-200 flex items-center justify-between">
             <h2 className="font-semibold text-gray-800">{combo.name}</h2>
@@ -130,7 +160,7 @@ export default function ToppingsTab({ onSauceLink }: ToppingsTabProps) {
       ))}
 
       {/* Special Topping Recipes */}
-      <div className="pt-2">
+      {showSpecialRecipes && <div className="pt-2">
         <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Special Topping Recipes</h2>
         <div className="space-y-4">
           {SPECIAL_RECIPES.map((recipe) => (
@@ -164,7 +194,7 @@ export default function ToppingsTab({ onSauceLink }: ToppingsTabProps) {
             </div>
           ))}
         </div>
-      </div>
+      </div>}
     </div>
   )
 }
