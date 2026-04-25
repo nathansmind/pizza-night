@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import TabNav from '@/components/TabNav'
 import CrustTab from '@/components/CrustTab'
 import ToppingsTab from '@/components/ToppingsTab'
@@ -9,6 +8,12 @@ import SauceTab from '@/components/SauceTab'
 import type { PizzaStyle } from '@/data/pizzaData'
 
 type Tab = 'crust' | 'toppings' | 'sauce'
+
+const TAB_TITLES: Record<Tab, string> = {
+  crust: 'Crust',
+  toppings: 'Toppings',
+  sauce: 'Sauce',
+}
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<Tab>('crust')
@@ -44,24 +49,14 @@ export default function Home() {
   }
 
   return (
-    <div className="max-w-lg mx-auto min-h-screen flex flex-col">
-      {/* Header */}
-      <header className="flex flex-col items-center py-3 px-4">
-        <Image
-          src="/logo.png"
-          alt="The Pizza Place"
-          width={486}
-          height={351}
-          className="w-24 h-auto"
-          priority
-        />
+    <div className="max-w-lg mx-auto min-h-screen">
+      <header className="sticky top-0 z-30 bg-gray-100/90 backdrop-blur-sm border-b border-stone-300 px-4 py-3">
+        <h1 className="text-xl font-bold tracking-tight text-gray-900">
+          {TAB_TITLES[activeTab]}
+        </h1>
       </header>
 
-      {/* Tab Nav */}
-      <TabNav activeTab={activeTab} onTabChange={setActiveTab} />
-
-      {/* Tab Content */}
-      <main className="flex-1 overflow-auto">
+      <main className="pb-[calc(env(safe-area-inset-bottom)+4.5rem)]">
         {activeTab === 'crust' && (
           <CrustTab
             selectedStyle={selectedStyle}
@@ -84,6 +79,8 @@ export default function Home() {
           />
         )}
       </main>
+
+      <TabNav activeTab={activeTab} onTabChange={setActiveTab} />
     </div>
   )
 }
