@@ -1,28 +1,14 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { TOPPING_COMBOS, SPECIAL_RECIPES, SAUCES, type IngredientRef, type ToppingCombo } from '@/data/pizzaData'
+import { TOPPING_COMBOS, SPECIAL_RECIPES, SAUCES, type ToppingCombo } from '@/data/pizzaData'
+import { isSauceRef, shareCombo } from '@/lib/comboShare'
 
 interface ToppingsTabProps {
   onSauceLink: (sauceId: string) => void
-}
-
-function isSauceRef(ing: IngredientRef): ing is { label: string; sauceId: string } {
-  return typeof ing === 'object' && ing !== null
-}
-
-function ingLabel(ing: IngredientRef): string {
-  return isSauceRef(ing) ? ing.label : ing
-}
-
-function formatComboText(combo: ToppingCombo): string {
-  const lines = [combo.name, '']
-  lines.push(...combo.ingredients.map((ing) => `• ${ingLabel(ing)}`))
-  if (combo.finishWith && combo.finishWith.length > 0) {
-    lines.push('', 'Finish with:')
-    lines.push(...combo.finishWith.map((ing) => `• ${ingLabel(ing)}`))
-  }
-  return lines.join('\n')
+  menuComboIds: string[]
+  onAddToMenu: (id: string) => void
+  onRemoveFromMenu: (id: string) => void
 }
 
 const SAUCE_IDS = new Set(SAUCES.map((s) => s.id))
@@ -30,7 +16,7 @@ const SPECIAL_IDS = new Set(SPECIAL_RECIPES.map((r) => r.id))
 
 type Filter = 'all' | 'NYC' | 'Grilled' | 'Detroit' | 'Calzone' | 'special'
 
-export default function ToppingsTab({ onSauceLink }: ToppingsTabProps) {
+export default function ToppingsTab({ onSauceLink, menuComboIds, onAddToMenu, onRemoveFromMenu }: ToppingsTabProps) {
   const recipeRefs = useRef<Record<string, HTMLDivElement | null>>({})
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const [filter, setFilter] = useState<Filter>('all')
@@ -44,11 +30,8 @@ export default function ToppingsTab({ onSauceLink }: ToppingsTabProps) {
   }
 
   async function handleShare(combo: ToppingCombo) {
-    const text = formatComboText(combo)
-    if (navigator.share) {
-      await navigator.share({ title: combo.name, text })
-    } else {
-      await navigator.clipboard.writeText(text)
+    const result = await shareCombo(combo)
+    if (result.kind === 'copied') {
       setCopiedId(combo.id)
       setTimeout(() => setCopiedId(null), 2000)
     }
@@ -83,25 +66,46 @@ export default function ToppingsTab({ onSauceLink }: ToppingsTabProps) {
         </select>
       </div>
 
-      {visibleCombos.map((combo) => (
+      {visibleCombos.map((combo) => {
+        const onMenu = menuComboIds.includes(combo.id)
+        return (
         <div key={combo.id} className="rounded-xl border border-stone-200 bg-white shadow-sm overflow-hidden">
           <div className="px-4 py-3 bg-stone-50 border-b border-stone-200 flex items-center justify-between">
             <h2 className="font-semibold text-gray-800">{combo.name}</h2>
-            <button
-              onClick={() => handleShare(combo)}
-              className="text-stone-400 hover:text-stone-600 active:text-stone-800 transition-colors ml-2 flex items-center gap-1"
-              title="Share ingredients"
-            >
-              {copiedId === combo.id ? (
-                <span className="text-xs font-medium text-stone-500">Copied!</span>
-              ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-                  <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
-                  <polyline points="16 6 12 2 8 6" />
-                  <line x1="12" y1="2" x2="12" y2="15" />
-                </svg>
-              )}
-            </button>
+            <div className="flex items-center gap-3 ml-2">
+              <button
+                onClick={() => handleShare(combo)}
+                className="text-stone-400 hover:text-stone-600 active:text-stone-800 transition-colors flex items-center gap-1"
+                title="Share ingredients"
+              >
+                {copiedId === combo.id ? (
+                  <span className="text-xs font-medium text-stone-500">Copied!</span>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+                    <polyline points="16 6 12 2 8 6" />
+                    <line x1="12" y1="2" x2="12" y2="15" />
+                  </svg>
+                )}
+              </button>
+              <button
+                onClick={() => (onMenu ? onRemoveFromMenu(combo.id) : onAddToMenu(combo.id))}
+                aria-pressed={onMenu}
+                className={`transition-colors flex items-center ${onMenu ? 'text-primary hover:text-red-800' : 'text-stone-400 hover:text-stone-600 active:text-stone-800'}`}
+                title={onMenu ? 'Remove from menu' : 'Add to menu'}
+              >
+                {onMenu ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
           <div className="px-4 py-3 space-y-3">
             <ul className="space-y-1.5">
@@ -157,7 +161,8 @@ export default function ToppingsTab({ onSauceLink }: ToppingsTabProps) {
             )}
           </div>
         </div>
-      ))}
+        )
+      })}
 
       {/* Special Topping Recipes */}
       {showSpecialRecipes && <div className="pt-2">
