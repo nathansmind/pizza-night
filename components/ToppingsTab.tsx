@@ -15,12 +15,18 @@ interface ToppingsTabProps {
 const SAUCE_IDS = new Set(SAUCES.map((s) => s.id))
 const SPECIAL_IDS = new Set(SPECIAL_RECIPES.map((r) => r.id))
 
-const SPECIAL_AS_COMBOS: ToppingCombo[] = SPECIAL_RECIPES.map((r) => ({
-  id: r.id,
-  name: r.name,
-  styles: [],
-  ingredients: r.sections.flatMap((s) => s.items),
-}))
+const byName = (a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name)
+
+const SPECIAL_AS_COMBOS: ToppingCombo[] = SPECIAL_RECIPES
+  .map((r) => ({
+    id: r.id,
+    name: r.name,
+    description: r.description,
+    image: r.image,
+    styles: [],
+    ingredients: r.sections.flatMap((s) => s.items),
+  }))
+  .sort(byName)
 
 type Filter = 'all' | 'NYC' | 'Grilled' | 'Detroit' | 'Calzone' | 'special'
 
@@ -50,11 +56,12 @@ export default function ToppingsTab({ onSauceLink, menuComboIds, onAddToMenu, on
     setExpandedId((prev) => (prev === id ? null : id))
   }
 
-  const visibleCombos = filter === 'all'
+  const visibleCombos = (filter === 'all'
     ? TOPPING_COMBOS
     : filter === 'special'
       ? []
       : TOPPING_COMBOS.filter((c) => c.styles.includes(filter as 'NYC' | 'Grilled' | 'Detroit' | 'Calzone'))
+  ).slice().sort(byName)
 
   const showSpecialRecipes = filter === 'all' || filter === 'special'
 
