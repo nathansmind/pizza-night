@@ -36,6 +36,8 @@ export interface ToppingCombo {
   styles: ('NYC' | 'Grilled' | 'Detroit' | 'Calzone')[]
   ingredients: IngredientRef[]
   finishWith?: IngredientRef[]
+  description?: string
+  image?: string
 }
 
 export interface SpecialRecipe {
@@ -159,6 +161,9 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'classic-cheese',
     name: 'Three Cheese',
     styles: ['NYC', 'Grilled'],
+    image: '/toppings/classic-cheese.png',
+    description:
+      'A clean trio of mozzarella, fontina, and a finishing snow of parmesan over bright NYC sauce. Basil keeps it summery.',
     ingredients: [
       { label: 'NYC Sauce', sauceId: 'nyc' },
       'Half Mozzarella Half Fontina',
@@ -169,6 +174,8 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'salami',
     name: 'Rosemary Salami',
     styles: ['NYC', 'Grilled'],
+    description:
+      'Salami curls up into little cups, rosemary perfumes the crust, and hot chilis bring the heat.',
     ingredients: [
       { label: 'NYC Sauce', sauceId: 'nyc' },
       'Half Mozzarella Half Fontina',
@@ -181,6 +188,9 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'chicken-bacon-ranch',
     name: 'Chicken Bacon Ranch',
     styles: ['NYC', 'Grilled'],
+    image: '/toppings/chicken-bacon-ranch.png',
+    description:
+      'Cool ranch instead of red sauce, with chicken, bacon, fresh tomato, and green onion piled on melty mozzarella-fontina.',
     ingredients: [
       'Ranch Dressing',
       'Half Mozzarella Half Fontina',
@@ -194,6 +204,8 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'hawaiian',
     name: 'Hawaiian NYC Sauce',
     styles: ['NYC', 'Grilled'],
+    description:
+      'Sweet pineapple and salty ham over NYC sauce, with a flick of jalapeño to keep it interesting.',
     ingredients: [
       { label: 'NYC Sauce', sauceId: 'nyc' },
       'Half Mozzarella Half Fontina',
@@ -206,6 +218,8 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'margarita',
     name: 'Margarita',
     styles: ['NYC', 'Grilled'],
+    description:
+      'The simplest pizza done right — fresh mozzarella, basil, NYC sauce, finished with a balsamic drizzle.',
     ingredients: [
       { label: 'NYC Sauce', sauceId: 'nyc' },
       'Mozzarella (shredded and balled)',
@@ -217,6 +231,8 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'dubliner',
     name: 'Dubliner',
     styles: ['NYC', 'Grilled'],
+    description:
+      'A reuben in pizza form: thousand island, dubliner cheese, corned beef, and a tangle of coleslaw on top after baking.',
     ingredients: [
       'Thousand island dressing',
       'Half Mozzarella Half Fontina or Dubliner cheese',
@@ -228,6 +244,8 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'taco-pizza',
     name: 'Taco Pizza',
     styles: ['NYC', 'Grilled'],
+    description:
+      'Chipotle ranch, taco-seasoned beef, and a melty cheddar-mozz blend, with crisp lettuce and sour-cream dip on the side.',
     ingredients: [
       'Chipotle Ranch Dressing',
       'Half Cheddar Half Mozzarella',
@@ -242,6 +260,8 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'brick-corner-margarita',
     name: 'Brick Corner Margarita',
     styles: ['Detroit'],
+    description:
+      'A brick-corner Detroit with cheddar-mozz, sliced tomatoes, balsamic, and a cool spoonful of whipped basil ricotta on top.',
     ingredients: [
       { label: 'Detroit sauce', sauceId: 'detroit' },
       'Half Medium Cheddar Half Mozzarella',
@@ -257,6 +277,8 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'detroit-classic-pep',
     name: 'Detroit Classic Pep',
     styles: ['Detroit'],
+    description:
+      'Crisp-edged Detroit-style square with cup-and-char pepperoni and a thick bed of cheddar and mozzarella.',
     ingredients: [
       { label: 'Detroit sauce', sauceId: 'detroit' },
       'Half Medium Cheddar Half Mozzarella',
@@ -267,6 +289,8 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'classic-pepperoni',
     name: 'Classic Pepperoni',
     styles: ['NYC', 'Grilled'],
+    description:
+      'The undefeated classic — NYC sauce, mozzarella-fontina, and curling cup-and-char pepperoni, finished with parmesan.',
     ingredients: [
       { label: 'NYC Sauce', sauceId: 'nyc' },
       'Half Mozzarella Half Fontina',
@@ -278,6 +302,8 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'meatball-calzone',
     name: 'Meatball Calzone',
     styles: ['Calzone'],
+    description:
+      'Tender meatballs and melted mozzarella inside a golden folded crust, with a side of marinara for dipping.',
     ingredients: [
       'Mozzarella',
       'Meatballs',
@@ -288,6 +314,8 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'spinach-pepperoni-calzone',
     name: 'Spinach Pepperoni Calzone',
     styles: ['Calzone'],
+    description:
+      'Spinach, diced tomatoes, and pepperoni inside the calzone — a lighter take, finished with salt and oregano.',
     ingredients: [
       'Mozzarella',
       'Spinach',

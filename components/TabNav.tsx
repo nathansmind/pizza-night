@@ -91,10 +91,10 @@ const TABS: { id: Tab; label: string; Icon: (props: { className?: string }) => J
 export default function TabNav({ activeTab, onTabChange }: TabNavProps) {
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 max-w-lg mx-auto flex border-t border-stone-300 bg-white/90 backdrop-blur-sm pb-[env(safe-area-inset-bottom)] z-40"
+      className="fixed bottom-0 left-0 right-0 max-w-lg mx-auto flex border-t border-primary bg-white pb-[env(safe-area-inset-bottom)] z-40"
       aria-label="Primary"
     >
-      {TABS.map(({ id, label, Icon }) => {
+      {TABS.map(({ id, label, Icon }, idx) => {
         const isActive = activeTab === id
         return (
           <button
@@ -102,8 +102,12 @@ export default function TabNav({ activeTab, onTabChange }: TabNavProps) {
             onClick={() => onTabChange(id)}
             aria-label={label}
             aria-current={isActive ? 'page' : undefined}
-            className={`flex-1 flex flex-col items-center gap-1 py-2 text-xs font-semibold tracking-wide transition-colors ${
-              isActive ? 'text-primary' : 'text-gray-500 hover:text-gray-800'
+            className={`flex-1 flex flex-col items-center gap-1 py-2.5 text-xs font-bold tracking-wide transition-colors ${
+              idx > 0 ? 'border-l border-primary/20' : ''
+            } ${
+              isActive
+                ? 'bg-primary text-white'
+                : 'text-primary hover:bg-primary/5'
             }`}
           >
             <Icon className="w-6 h-6" />

@@ -8,11 +8,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: '#C30000',
-        cream: '#FFDFC5',
+        primary: '#C83D3E',
+        cream: '#FAF6EE',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['var(--font-pt-sans)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-pt-sans-narrow)', 'system-ui', 'sans-serif'],
       },
     },
   },
