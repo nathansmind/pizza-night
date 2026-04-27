@@ -174,6 +174,7 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'salami',
     name: 'Rosemary Salami',
     styles: ['NYC', 'Grilled'],
+    image: '/toppings/salami.png',
     description:
       'Salami curls up into little cups, rosemary perfumes the crust, and hot chilis bring the heat.',
     ingredients: [
@@ -204,6 +205,7 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'hawaiian',
     name: 'Hawaiian NYC Sauce',
     styles: ['NYC', 'Grilled'],
+    image: '/toppings/hawaiian.png',
     description:
       'Sweet pineapple and salty ham over NYC sauce, with a flick of jalapeño to keep it interesting.',
     ingredients: [
@@ -218,6 +220,7 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'margarita',
     name: 'Margarita',
     styles: ['NYC', 'Grilled'],
+    image: '/toppings/margarita.png',
     description:
       'The simplest pizza done right — fresh mozzarella, basil, NYC sauce, finished with a balsamic drizzle.',
     ingredients: [
@@ -231,6 +234,7 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'dubliner',
     name: 'Dubliner',
     styles: ['NYC', 'Grilled'],
+    image: '/toppings/dubliner.png',
     description:
       'A reuben in pizza form: thousand island, dubliner cheese, corned beef, and a tangle of coleslaw on top after baking.',
     ingredients: [
@@ -244,6 +248,7 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'taco-pizza',
     name: 'Taco Pizza',
     styles: ['NYC', 'Grilled'],
+    image: '/toppings/taco-pizza.png',
     description:
       'Chipotle ranch, taco-seasoned beef, and a melty cheddar-mozz blend, with crisp lettuce and sour-cream dip on the side.',
     ingredients: [
@@ -289,6 +294,7 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'classic-pepperoni',
     name: 'Classic Pepperoni',
     styles: ['NYC', 'Grilled'],
+    image: '/toppings/classic-pepperoni.png',
     description:
       'The undefeated classic — NYC sauce, mozzarella-fontina, and curling cup-and-char pepperoni, finished with parmesan.',
     ingredients: [
@@ -302,6 +308,7 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'meatball-calzone',
     name: 'Meatball Calzone',
     styles: ['Calzone'],
+    image: '/toppings/meatball-calzone.png',
     description:
       'Tender meatballs and melted mozzarella inside a golden folded crust, with a side of marinara for dipping.',
     ingredients: [
@@ -314,6 +321,7 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'spinach-pepperoni-calzone',
     name: 'Spinach Pepperoni Calzone',
     styles: ['Calzone'],
+    image: '/toppings/spinach-pepperoni-calzone.png',
     description:
       'Spinach, diced tomatoes, and pepperoni inside the calzone — a lighter take, finished with salt and oregano.',
     ingredients: [
