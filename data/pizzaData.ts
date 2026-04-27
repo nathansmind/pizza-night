@@ -33,7 +33,7 @@ export interface Sauce {
 export interface ToppingCombo {
   id: string
   name: string
-  styles: ('NYC' | 'Grilled' | 'Detroit' | 'Calzone')[]
+  styles: PizzaStyle[]
   ingredients: IngredientRef[]
   finishWith?: IngredientRef[]
   description?: string
@@ -43,6 +43,8 @@ export interface ToppingCombo {
 export interface SpecialRecipe {
   id: string
   name: string
+  description?: string
+  image?: string
   sections: { heading?: string; items: string[] }[]
 }
 
@@ -415,6 +417,9 @@ export const SPECIAL_RECIPES: SpecialRecipe[] = [
   {
     id: 'whipped-ricotta',
     name: 'Whipped Basil Ricotta',
+    description:
+      'Creamy whole-milk ricotta whipped smooth with fresh basil, a hint of garlic, and a pinch of red pepper flakes — spooned on after the slice comes out of the oven.',
+    image: '/toppings/whipped-ricotta.png',
     sections: [
       {
         items: [
@@ -431,6 +436,9 @@ export const SPECIAL_RECIPES: SpecialRecipe[] = [
   {
     id: 'coleslaw',
     name: 'Coleslaw',
+    description:
+      'Crisp green cabbage, shredded carrot, red onion, and peppadew pepper tossed in a tangy buttermilk-mayo dressing. Piled on top of the pizza right after it comes out.',
+    image: '/toppings/coleslaw.png',
     sections: [
       {
         heading: 'Dressing',
@@ -457,6 +465,9 @@ export const SPECIAL_RECIPES: SpecialRecipe[] = [
   {
     id: 'arugula-salad',
     name: 'Arugula Salad',
+    description:
+      'Peppery fresh arugula dressed simply with olive oil, a splash of red wine vinegar, and salt and pepper. Scattered over the hot pizza just before serving.',
+    image: '/toppings/arugula-salad.png',
     sections: [
       {
         items: ['Arugula', 'Olive oil', 'Red wine vinegar', 'Salt and pepper to taste'],
