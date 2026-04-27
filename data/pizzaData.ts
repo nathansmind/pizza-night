@@ -307,6 +307,79 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     finishWith: ['Parmesan'],
   },
   {
+    id: 'classic-detroit',
+    name: 'Classic Detroit',
+    styles: ['Detroit'],
+    image: '/toppings/classic-detroit.png',
+    description:
+      'Detroit sauce ladled over a cheddar-mozz base with crispy brick corners, finished with fresh basil.',
+    ingredients: [
+      { label: 'Detroit sauce', sauceId: 'detroit' },
+      'Half Medium Cheddar Half Mozzarella',
+    ],
+    finishWith: ['Basil'],
+  },
+  {
+    id: 'fall-harvest-pesto',
+    name: 'Fall Harvest Pesto',
+    styles: ['NYC', 'Grilled'],
+    image: '/toppings/fall-harvest-pesto.png',
+    description:
+      'Fresh pesto in place of red sauce, with a melty mozzarella-fontina blend and sweet orange cherry tomatoes.',
+    ingredients: [
+      'Fresh Pesto Sauce',
+      'Half Mozzarella Half Fontina',
+      'Orange cherry tomatoes',
+    ],
+  },
+  {
+    id: 'grandma-pizza',
+    name: 'Grandma Pizza',
+    styles: ['Grandma'],
+    image: '/toppings/grandma-pizza.png',
+    description:
+      'Classic grandma-style with crushed tomato sauce and fresh mozzarella, finished simply with basil.',
+    ingredients: [
+      { label: 'Grandma Sauce', sauceId: 'grandma' },
+      'Mozzarella',
+    ],
+    finishWith: ['Basil'],
+  },
+  {
+    id: 'classic-sausage',
+    name: 'Classic Sausage',
+    styles: ['NYC', 'Grilled'],
+    image: '/toppings/classic-sausage.png',
+    description:
+      'NYC sauce, mozzarella-fontina, crumbled sausage, and green peppers — finished with a snow of parmesan.',
+    ingredients: [
+      { label: 'NYC Sauce', sauceId: 'nyc' },
+      'Half Mozzarella Half Fontina',
+      'Sausage',
+      'Green peppers',
+    ],
+    finishWith: ['Parmesan'],
+  },
+  {
+    id: 'supreme',
+    name: 'Supreme',
+    styles: ['NYC', 'Grilled'],
+    image: '/toppings/supreme.png',
+    description:
+      'The full spread — pepperoni, sausage, tomato, green onion, olive, and mushroom over mozzarella-fontina, finished with parmesan.',
+    ingredients: [
+      { label: 'NYC Sauce', sauceId: 'nyc' },
+      'Half Mozzarella Half Fontina',
+      'Pepperonis',
+      'Sausage',
+      'Tomato',
+      'Green onion',
+      'Olive',
+      'Mushroom',
+    ],
+    finishWith: ['Parmesan'],
+  },
+  {
     id: 'meatball-calzone',
     name: 'Meatball Calzone',
     styles: ['Calzone'],
