@@ -265,6 +265,7 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'brick-corner-margarita',
     name: 'Brick Corner Margarita',
     styles: ['Detroit'],
+    image: '/toppings/brick-corner-margarita.png',
     description:
       'A brick-corner Detroit with cheddar-mozz, sliced tomatoes, balsamic, and a cool spoonful of whipped basil ricotta on top.',
     ingredients: [
@@ -282,6 +283,7 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'detroit-classic-pep',
     name: 'Detroit Classic Pep',
     styles: ['Detroit'],
+    image: '/toppings/detroit-classic-pep.png',
     description:
       'Crisp-edged Detroit-style square with cup-and-char pepperoni and a thick bed of cheddar and mozzarella.',
     ingredients: [
