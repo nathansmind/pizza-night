@@ -11,7 +11,7 @@ import { PIZZA_STYLES, TOPPING_COMBOS, type PizzaStyle } from '@/data/pizzaData'
 type Tab = 'home' | 'crust' | 'toppings' | 'sauce'
 
 const TAB_TITLES: Record<Tab, string> = {
-  home: 'The Pizza Place',
+  home: 'Pizza Night',
   crust: 'Crust',
   toppings: 'Toppings',
   sauce: 'Sauce',
@@ -131,11 +131,14 @@ export default function Home() {
 
   return (
     <div className="max-w-lg mx-auto min-h-screen">
-      <header className="sticky top-0 z-30 bg-gray-100/90 backdrop-blur-sm border-b border-stone-300 px-4 py-3">
-        <h1 className="text-xl font-bold tracking-tight text-gray-900">
-          {TAB_TITLES[activeTab]}
-        </h1>
-      </header>
+      <div className="sticky top-0 z-30">
+        <header className="bg-primary text-white px-4 py-3 text-center">
+          <h1 className="font-display uppercase tracking-wide text-xl">
+            {TAB_TITLES[activeTab]}
+          </h1>
+        </header>
+        <div className="checker-strip" aria-hidden />
+      </div>
 
       <main className="pb-[calc(env(safe-area-inset-bottom)+4.5rem)]">
         {activeTab === 'home' && (
