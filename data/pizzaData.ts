@@ -161,6 +161,7 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'classic-cheese',
     name: 'Three Cheese',
     styles: ['NYC', 'Grilled'],
+    image: '/toppings/classic-cheese.png',
     description:
       'A clean trio of mozzarella, fontina, and a finishing snow of parmesan over bright NYC sauce. Basil keeps it summery.',
     ingredients: [
@@ -187,6 +188,7 @@ export const TOPPING_COMBOS: ToppingCombo[] = [
     id: 'chicken-bacon-ranch',
     name: 'Chicken Bacon Ranch',
     styles: ['NYC', 'Grilled'],
+    image: '/toppings/chicken-bacon-ranch.png',
     description:
       'Cool ranch instead of red sauce, with chicken, bacon, fresh tomato, and green onion piled on melty mozzarella-fontina.',
     ingredients: [
